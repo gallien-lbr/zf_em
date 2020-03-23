@@ -2,6 +2,9 @@
 require 'vendor/autoload.php';
 use Zend\EventManager\SharedEventManager;
 
+/**
+ * This code is saying, "Listen to the 'do' event of the 'Example' target, and, when notified, execute this callback."
+ */
 $sharedEvents = new SharedEventManager();
 $sharedEvents->attach('Example', 'do', function ($e) {
     $event  = $e->getName();
