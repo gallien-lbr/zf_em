@@ -1,0 +1,13 @@
+{
+    "name": "gallien/zf_em",
+    "description": "a test of zend event manager system",
+    "authors": [
+        {
+            "name": "Gallien L",
+            "email": "1328920+glb2154@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "zendframework/zend-eventmanager": "^3.2"
+    }
+}
