@@ -5,6 +5,12 @@ use Zend\EventManager\EventManager;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
 
+/**
+ * Class Example
+ * le EventManager est encapsulé dans la classe
+ * pour permettre de déclencher des actions (trigger) au sein des méthodes (exemple : doIt)
+ */
+
 class Example implements EventManagerAwareInterface
 {
     protected $events;

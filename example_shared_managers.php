@@ -1,21 +1,43 @@
 <?php
-
 require 'vendor/autoload.php';
 
+use Zend\EventManager\EventManager;
+use Zend\EventManager\EventManagerAwareInterface;
+use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\SharedEventManager;
 
-/**
- * Example with SharedEventManager
- * => Describes an object that aggregates listeners for events attached
- * to objects with specific identifiers.
- */
+class Example implements EventManagerAwareInterface
+{
+    protected $events;
 
-/**
- *  "Listen to the 'do' event of the 'Example' target, and, when notified, execute this callback."
- */
+        public function setEventManager(EventManagerInterface $events)
+    {
+        $events->setIdentifiers([
+            __CLASS__,
+            get_class($this),
+        ]);
+        $this->events = $events;
+    }
+
+    public function getEventManager()
+    {
+        if (! $this->events) {
+            $this->setEventManager(new EventManager());
+        }
+        return $this->events;
+    }
+
+    public function doIt($foo, $baz)
+    {
+        $params = compact('foo', 'baz');
+        $this->getEventManager()->trigger(__FUNCTION__, $this, $params);
+    }
+
+}
+
 $sharedEvents = new SharedEventManager();
 $sharedEvents->attach('Example', 'do', function ($e) {
-    $event = $e->getName();
+    $event  = $e->getName();
     $target = get_class($e->getTarget()); // "Example"
     $params = $e->getParams();
     printf(
@@ -25,3 +47,7 @@ $sharedEvents->attach('Example', 'do', function ($e) {
         json_encode($params)
     );
 });
+
+$example = new Example();
+$example->getEventManager()->setSharedManager($sharedEvents);
+$example->do('bar', 'bat');
