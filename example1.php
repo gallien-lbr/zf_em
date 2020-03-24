@@ -5,14 +5,25 @@ require 'vendor/autoload.php';
 use Zend\EventManager\EventManager;
 use Zend\EventManager\Event;
 
+
 /**
- * Exemple 1
+ * Exemple 2
  */
-
-// An event is an object containing metadata on when and how it was triggered
-$event = new Event('do', null, []);
-
-// The eventManager aggregates listeners and triggers event
 $events = new EventManager();
 
-$events->triggerEvent($event);
+$listener =  function ($e) {
+    $event = $e->getName();
+    $params = $e->getParams();
+    printf(
+        'Handled event "%s", with parameters %s',
+        $event,
+        json_encode($params)
+    );
+};
+
+$events->attach('do',$listener);
+$params = ['foo' => 'bar', 'baz' => 'bat'];
+
+// Trigger  is going to create a Zend\EventManager\Event for you
+// note the target argument is null
+$events->trigger('do', null, $params);

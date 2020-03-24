@@ -1,28 +1,53 @@
 <?php
-
 require 'vendor/autoload.php';
 
 use Zend\EventManager\EventManager;
-use Zend\EventManager\Event;
+use Zend\EventManager\EventManagerAwareInterface;
+use Zend\EventManager\EventManagerInterface;
 
+class Example implements EventManagerAwareInterface
+{
+    protected $events;
 
-/**
- * Exemple 2
- */
-$events = new EventManager();
+    public function setEventManager(EventManagerInterface $events)
+    {
+        $events->setIdentifiers([
+            __CLASS__,
+            get_class($this),
+        ]);
+        $this->events = $events;
+    }
 
-$listener =  function ($e) {
-    $event = $e->getName();
+    public function getEventManager()
+    {
+        if (! $this->events) {
+            $this->setEventManager(new EventManager());
+        }
+        return $this->events;
+    }
+
+    public function doIt($foo, $baz)
+    {
+        $params = compact('foo', 'baz');
+        $this->getEventManager()->trigger(__FUNCTION__, $this, $params);
+    }
+
+}
+
+$example = new Example();
+
+// the instance of $example is passed through the "target"
+$example->getEventManager()->attach('doIt', function($e) {
+    $event  = $e->getName();
+    // the target is the current object instance
+    $target = get_class($e->getTarget()); // "Example"
     $params = $e->getParams();
     printf(
-        'Handled event "%s", with parameters %s',
+        'Handled event "%s" on target "%s", with parameters %s',
         $event,
+        $target,
         json_encode($params)
     );
-};
+});
 
-$events->attach('do',$listener);
-$params = ['foo' => 'bar', 'baz' => 'bat'];
-
-// Trigger  is going to create a Zend\EventManager\Event for you
-$events->trigger('do', null, $params);
+$example->doIt('titi', 'tutu','toto');
