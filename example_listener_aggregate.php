@@ -24,7 +24,7 @@ class LogEvents implements ListenerAggregateInterface
     public function attach(EventManagerInterface $events,$priority=1)
     {
         $this->listeners[] = $events->attach('do', [$this, 'log']);
-        // this will attach an
+        // this will attach another event
         $this->listeners[] = $events->attach('doSomethingElse', [$this, 'log']);
     }
 
