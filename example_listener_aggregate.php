@@ -1,5 +1,7 @@
 <?php
 
+require 'vendor/autoload.php';
+
 use Zend\EventManager\EventInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
@@ -8,6 +10,8 @@ use Zend\Log\Logger;
 
 class LogEvents implements ListenerAggregateInterface
 {
+    // the trait provides a $listeners property, that is inherited
+    // and common logic to attach / detach aggregates listener
     use ListenerAggregateTrait;
 
     private $log;
@@ -17,9 +21,10 @@ class LogEvents implements ListenerAggregateInterface
         $this->log = $log;
     }
 
-    public function attach(EventManagerInterface $events)
+    public function attach(EventManagerInterface $events,$priority=1)
     {
         $this->listeners[] = $events->attach('do', [$this, 'log']);
+        // this will attach an
         $this->listeners[] = $events->attach('doSomethingElse', [$this, 'log']);
     }
 
@@ -30,3 +35,7 @@ class LogEvents implements ListenerAggregateInterface
         $this->log->info(sprintf('%s: %s', $event, json_encode($params)));
     }
 }
+$logger = new Logger();
+$logListener = new LogEvents($logger);
+$events = new Zend\EventManager\EventManager();
+$logListener->attach($events);

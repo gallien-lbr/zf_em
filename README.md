@@ -6,7 +6,12 @@ copied from official documentation :
 
 [Zend Doc on Event Manager](https://docs.zendframework.com/tutorials/event-manager/)
 
-# memento
-* An Event is a named action.
-* A Listener is any PHP callback that reacts to an event.
-* An EventManager aggregates listeners for one or more named events, and triggers events.
+# Memento
+* An **Event** is a named action.
+* A **Listener** is any PHP callback that reacts to an event.
+* An **EventManager** aggregates listeners for one or more named events, and triggers events.
+
+* **SharedEventListener** : describes an object that aggregates listeners for events attached to objects with specific **identifiers**.
+
+* A **ListenerAggregate** : listen to multiple events via a concept of listener
+aggregates.

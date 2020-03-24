@@ -6,6 +6,8 @@ use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\SharedEventManager;
 
+// todo: example buggé
+
 class Example implements EventManagerAwareInterface
 {
     protected $events;
@@ -49,5 +51,5 @@ $sharedEvents->attach('Example', 'do', function ($e) {
 });
 
 $example = new Example();
-$example->getEventManager()->setSharedManager($sharedEvents);
+$example->setEventManager($sharedEvents);
 $example->do('bar', 'bat');
