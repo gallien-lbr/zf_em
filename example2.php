@@ -44,10 +44,10 @@ $example = new Example();
 
 // the instance of $example is passed through the "target"
 $example->getEventManager()->attach('doIt', function($e) {
-    $event  = $e->getName();
+    $event  = $e->getName(); // doIt
     // the target is the current object instance
     $target = get_class($e->getTarget()); // "Example"
-    $params = $e->getParams();
+    $params = $e->getParams(); // 'titi' 'tutu' 'toto'
     printf(
         'Handled event "%s" on target "%s", with parameters %s',
         $event,

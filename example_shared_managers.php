@@ -39,9 +39,9 @@ class Example implements EventManagerAwareInterface
 
 $sharedEvents = new SharedEventManager();
 $sharedEvents->attach('Example', 'do', function ($e) {
-    $event  = $e->getName();
+    $event  = $e->getName(); // "do"
     $target = get_class($e->getTarget()); // "Example"
-    $params = $e->getParams();
+    $params = $e->getParams(); // 'bar', 'bat'
     printf(
         'Handled event "%s" on target "%s", with parameters %s',
         $event,
