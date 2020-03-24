@@ -25,5 +25,5 @@ $events->attach('do',$listener);
 $params = ['foo' => 'bar', 'baz' => 'bat'];
 
 // Trigger  is going to create a Zend\EventManager\Event for you
-// note the target argument is null
+// note the target argument is null here
 $events->trigger('do', null, $params);

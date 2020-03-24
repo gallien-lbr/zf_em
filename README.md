@@ -7,12 +7,14 @@ copied from official documentation :
 [Zend Doc on Event Manager](https://docs.zendframework.com/tutorials/event-manager/)
 
 # Memento
-* An **Event** is a named action.
+### Event
+Event is a named action.
 ```php
 $event = new Event('do', null, []);
 ```
 
-* A **Listener** is any PHP callback that reacts to an event.
+### Listener
+ A listener is any PHP callback that reacts to an event.
 ```php
 $listener =  function ($e) {
     $event = $e->getName();
@@ -24,7 +26,8 @@ $listener =  function ($e) {
     );
 };
 ```
-* An **EventManager** aggregates listeners for one or more named events, and triggers events.
+### EventManager
+EM aggregates listeners for one or more named events, and triggers events.
 ```php
 $events = new EventManager();
 $events->attach('do',$listener);
@@ -32,7 +35,11 @@ $events->attach('do',$listener);
 * To sup up, the instance of the EventManager tracks all the defined events in an application and its corresponding listeners.
 The EventManager object is queried through a PriorityQueue, which tells us that an important event will generally get a lower value, while an unimportant event a higher value. 
 
-* **SharedEventListener** : A type of EM which describes an object that aggregates listeners for events attached to objects with specific **identifiers**.
+### SharedEventListener 
+A type of EM which describes an object that aggregates listeners for events attached to objects with specific **identifiers**.
 
-* A **ListenerAggregate** : listen to multiple events via a concept of listener
-aggregates.
+**Allows attaching to EMs composed by other classes without having an instance first.**
+ The assumption is that the SharedEventManager will be injected into EventManager instances, and then queried for additional listeners when triggering an event.
+
+### ListenerAggregate 
+Listen to multiple events via a concept of listener aggregates.
