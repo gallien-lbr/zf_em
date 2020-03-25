@@ -4,7 +4,9 @@ This repository is intented for my personal learning purposes.
 It uses the zend event manager, and contains examples
 copied from official documentation : 
 
-[Zend Doc on Event Manager](https://docs.zendframework.com/tutorials/event-manager/)
+Links: 
+* [Zend Doc on Event Manager](https://docs.zendframework.com/tutorials/event-manager/)
+* [Event Driven Dev](https://tournasdimitrios1.wordpress.com/2014/03/27/using-zf2s-event-manager-component-as-event-driven-programming-example/)
 
 # Memento
 ### Event
@@ -13,8 +15,11 @@ Event is a named action.
 $event = new Event('do', null, []);
 ```
 
+### Target
+Is an object that creates event
+
 ### Listener
- A listener is any PHP callback that reacts to an event.
+ A listener is any PHP callback (closure) that reacts to an event.
 ```php
 $listener =  function ($e) {
     $event = $e->getName();
@@ -30,6 +35,8 @@ $listener =  function ($e) {
 EM aggregates listeners for one or more named events, and triggers events.
 ```php
 $events = new EventManager();
+
+// EM attach method = registers an event 'do' to a specific listener (action)  
 $events->attach('do',$listener);
 ```
 * To sup up, the instance of the EventManager tracks all the defined events in an application and its corresponding listeners.

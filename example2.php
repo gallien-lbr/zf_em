@@ -37,14 +37,18 @@ class Example implements EventManagerAwareInterface
         $params = compact('foo', 'baz');
         $this->getEventManager()->trigger(__FUNCTION__, $this, $params);
     }
+    // trigger event
+    public function bigEvent($params = []){
+        $this->getEventManager()->trigger(__FUNCTION__, $this, $params);
+    }
 
 }
 
 $example = new Example();
 
 // the instance of $example is passed through the "target"
-$example->getEventManager()->attach('doIt', function($e) {
-    $event  = $e->getName(); // doIt
+$example->getEventManager()->attach('bigEvent', function($e) {
+    $event  = $e->getName(); // bigEvent
     // the target is the current object instance
     $target = get_class($e->getTarget()); // "Example"
     $params = $e->getParams(); // 'titi' 'tutu' 'toto'
@@ -56,4 +60,5 @@ $example->getEventManager()->attach('doIt', function($e) {
     );
 });
 
-$example->doIt('titi', 'tutu','toto');
+//$example->doIt('titi', 'tutu','toto');
+$example->bigEvent([]);
