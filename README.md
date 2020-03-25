@@ -6,6 +6,7 @@ copied from official documentation :
 
 Links: 
 * [Zend Doc on Event Manager](https://docs.zendframework.com/tutorials/event-manager/)
+* [=====> Zend 2.4 EM](https://framework.zend.com/manual/2.4/en/modules/zend.event-manager.event-manager.html)
 * [Event Driven Dev](https://tournasdimitrios1.wordpress.com/2014/03/27/using-zf2s-event-manager-component-as-event-driven-programming-example/)
 
 # Memento
@@ -60,4 +61,7 @@ EM  manager has two methods :
 * triggerEventUntil(callable $callback, EventInterface $event)
 * triggerUntil(callable $callback, $eventName, $target = null, $argv = [])
 
-$callback must return a boolean
+triggerUntil = Triggers all listeners to a named event, just like trigger(), with the addition that it passes the return value from each listener to $callback; if $callback returns a boolean true value, execution of the listeners is interrupted. You can test for this using $result->stopped().
+
+($callback must return a boolean)
+

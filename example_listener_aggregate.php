@@ -1,8 +1,10 @@
 <?php
 
-require '../vendor/autoload.php';
+require 'vendor/autoload.php';
 
 use Zend\EventManager\EventInterface;
+use Zend\EventManager\EventManager;
+
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\EventManager\ListenerAggregateTrait;
@@ -35,7 +37,7 @@ class LogEvents implements ListenerAggregateInterface
         $this->log->info(sprintf('%s: %s', $event, json_encode($params)));
     }
 }
-$logger = new Logger();
+$logger = new Zend\Log\Logger();
 $logListener = new LogEvents($logger);
-$events = new Zend\EventManager\EventManager();
-$logListener->attach($events);
+$events = new EventManager();
+$events->attach($logListener);
