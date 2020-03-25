@@ -50,3 +50,14 @@ A type of EM which describes an object that aggregates listeners for events atta
 
 ### ListenerAggregate 
 Listen to multiple events via a concept of listener aggregates.
+
+### Short Circuit listener execution
+
+**If a particuliar result is obtained allowed to return something
+returned quicker than target.**
+EM  manager has two methods : 
+
+* triggerEventUntil(callable $callback, EventInterface $event)
+* triggerUntil(callable $callback, $eventName, $target = null, $argv = [])
+
+$callback must return a boolean
