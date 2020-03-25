@@ -1,5 +1,5 @@
 <?php
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
 abstract class EventProvider implements Zend\EventManager\EventManagerAwareInterface
 {

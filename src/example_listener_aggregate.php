@@ -1,6 +1,6 @@
 <?php
 
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
 use Zend\EventManager\EventInterface;
 use Zend\EventManager\EventManagerInterface;

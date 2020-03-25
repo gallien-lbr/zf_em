@@ -1,5 +1,5 @@
-# readme
-march 2020: 
+# README
+March 2020: 
 This repository is intented for my personal learning purposes.
 It uses the zend event manager, and contains examples
 copied from official documentation : 
